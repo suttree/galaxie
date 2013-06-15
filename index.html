@@ -3,7 +3,6 @@
 <title>Galaxie</title>
 <link rel="shortcut icon" href="/images/troisen.ico" /> 
 <link href="css/galaxie.css" media="screen" rel="stylesheet" type="text/css" /> 
-<!--<meta name="viewport" content="width=device-width,user-scalable=0,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">-->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <style type="text/css">
 body  {margin:0;padding:0;background-color:#000000;font-size:0;overflow:hidden}
@@ -68,6 +67,9 @@ var ctrl;
 var timeout;
 var fps=0;
 
+  var background = new Image();
+  background.src = "/galaxie.jpg";
+
 function init()
   {
   var a=0;
@@ -96,6 +98,8 @@ function anim()
   mouse_y=cursor_y-y;
   context.fillRect(0,0,w,h);
   context.strokeStyle='rgb(0,0,0)';
+
+  context.drawImage(background,0,0);   
 
   for(var i=0;i<n;i++)
     {
