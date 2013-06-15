@@ -120,17 +120,43 @@ function anim()
   timeout=setTimeout('anim()',fps);
   }
 
+function steer()
+  {
+    if (Math.floor(Math.random()*2) == 1)
+    {
+      if (Math.floor(Math.random()*2) == 1)
+      {
+        cursor_x = Math.floor(Math.random()*5) + cursor_x;
+      } else {
+        cursor_x = cursor_x - Math.floor(Math.random()*5);
+      }
+    } else {
+      if (Math.floor(Math.random()*2) == 1)
+      {
+        cursor_y = Math.floor(Math.random()*7) + cursor_y;
+      } else {
+        cursor_y = cursor_y - Math.floor(Math.random()*7);
+      }
+    }
+  }
+
+function velocity()
+  {
+    if (Math.floor(Math.random()*2) == 1)
+    {
+      star_speed += -0.2;
+    } else {
+      star_speed += 0.2;
+    }
+  }
+
 function move(evt)
   {
   evt=evt||event;
+  alert(evt.pageX);
+  alert(evt.pageY);
   cursor_x=evt.pageX-canvas_x;
   cursor_y=evt.pageY-canvas_y;
-  }
-
-function tilt(beta, gamma)
-  {
-    cursor_x=Math.floor(beta)-canvas_x;
-    cursor_y=Math.floor(gamma)-canvas_y;
   }
 
 function key_manager(evt)
@@ -207,24 +233,14 @@ function resize()
   init();
   }
 
-document.onmousemove=move;
+/*document.onmousemove=move*/;
 document.onkeypress=key_manager;
 document.onkeyup=release;
 document.onmousewheel=mouse_wheel; if(window.addEventListener) window.addEventListener('DOMMouseScroll',mouse_wheel,false);
 
-if (window.DeviceOrientationEvent) {
-  window.addEventListener("deviceorientation", function () {
-    tilt(event.beta, event.gamma);
-  }, true);
-} else if (window.DeviceMotionEvent) {
-  window.addEventListener('devicemotion', function () {
-    tilt(event.acceleration.x * 2, event.acceleration.y * 2);
-  }, true);
-} else {
-  window.addEventListener("MozOrientation", function () {
-    tilt(orientation.x * 50, orientation.y * 50);
-  }, true);
-}
+/* auto-pilot */
+setInterval('steer()',3000);
+setInterval('velocity()',5000);
 
 </script>
 
