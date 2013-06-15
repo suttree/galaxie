@@ -12,6 +12,7 @@ canvas{background-color:#000000;overflow:hidden}
 </style>
 </head>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 <script type="text/javascript">
 function $i(id) { return document.getElementById(id); }
 function $r(parent,child) { (document.getElementById(parent)).removeChild(document.getElementById(child)); }
@@ -29,6 +30,9 @@ function get_screen_size()
   }
 
 var url=document.location.href;
+
+var audio = {};
+audio = new Audio();
 
 var flag=true;
 var test=true;
@@ -233,6 +237,50 @@ function resize()
   init();
   }
 
+function fadeVolume(audio, volume, callback)
+{
+    var factor  = 0.01,
+        speed   = 500;
+    if (volume > factor)
+    {
+        setTimeout(function(){
+            fadeVolume((audio, audio.volume -= factor), callback);         
+        }, speed);
+    } else {
+        (typeof(callback) !== 'function') || callback();
+    }
+}
+
+function playNextStation() {
+  console.log('fade complete');
+
+  stations = [
+    "http://www.chilton.com/scripts/radio/short-audio.au",
+    "http://audio7.radioreference.com/745565660.mp3",
+    "http://audio2.radioreference.com/il_chicago_police2.mp3",
+    "http://archive.org/download/ird059/tcp_d1_01_the_swedish_rhapsody_irdial.mp3",
+    "http://archive.org/download/ird059/tcp_d1_05_5_dashes_irdial.mp3",
+    "http://archive.org/download/ird059/tcp_d1_16_attencion_3_finals_irdial.mp3",
+    "http://archive.org/download/ird059/tcp_d1_12_three_note_odditiy_irdial.mp3",
+    "http://archive.org/download/ird059/tcp_d1_14_counting_station_spanish_irdial.mp3",
+    "http://archive.org/download/ird059/tcp_d3_26_sample_count_irdial.mp3",
+    "http://archive.org/download/ird059/tcp_d4_24_nnn_french_early_version_irdial.mp3",
+    "http://audio7.radioreference.com/denver.mp3",
+    "http://audio4.radioreference.com/796464909.mp3",
+    "http://audio7.radioreference.com/373770164.mp3",
+    "http://audio4.radioreference.com/il_chicago_police2.mp3",
+  ];
+
+  station = stations[Math.floor(Math.random()*stations.length)];
+  console.log('next station');
+  console.log(station);
+
+  audio.src = station
+  audio.play();
+
+  setInterval( function() { fadeVolume(audio, audio.volume, playNextStation()); }, 180000);
+}
+
 /*document.onmousemove=move*/;
 document.onkeypress=key_manager;
 document.onkeyup=release;
@@ -245,9 +293,13 @@ setInterval('velocity()',5000);
 </script>
 
 <body onload="start()" onresize="resize()" onorientationchange="resize()" onmousedown="context.fillStyle='rgba(0,0,0,'+opacity+')'" onmouseup="context.fillStyle='rgb(0,0,0)'">
-<canvas id="starfield" style="background-color:#000000"></canvas>
-<audio src="http://audio7.radioreference.com/745565660.mp3" autoplay>
-<audio src="http://audio2.radioreference.com/il_chicago_police2.mp3" autoplay>
+  <canvas id="starfield" style="background-color:#000000"></canvas>
 </body>
+
+<script>
+  $('document').ready(function () {
+    playNextStation();
+  });
+</script>
 
 </html>
