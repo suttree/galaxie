@@ -1,0 +1,2 @@
+randomly change direction and speed
+fade in and out from a range of audio channels
