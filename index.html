@@ -43,11 +43,42 @@ body {
   width: 118px;
   height: 60px;
   z-index: 1000;
+  opacity : 0.9;
   -webkit-transform: rotate(-5deg);
   -moz-transform: rotate(-5deg);
   -ms-transform: rotate(-5deg);
   -o-transform: rotate(-5deg);
   transform: rotate(-5deg);
+}
+#lcd {
+  background: url(images/lcd.gif) no-repeat;
+  position: absolute;
+  right: 275;
+  bottom: -30;
+  width: 100px;
+  height: 100px;
+  z-index: 1001;
+  opacity : 0.2;
+  -webkit-transform: rotate(-7deg);
+  -moz-transform: rotate(-7deg);
+  -ms-transform: rotate(-7deg);
+  -o-transform: rotate(-7deg);
+  transform: rotate(-7deg);
+}
+#lcd2 {
+  background: url(images/lcd-2.gif) no-repeat;
+  position: absolute;
+  right: 355;
+  bottom: -40;
+  width: 400px;
+  height: 100px;
+  z-index: 1001;
+  opacity : 0.1;
+  -webkit-transform: rotate(-1deg);
+  -moz-transform: rotate(-1deg);
+  -ms-transform: rotate(-1deg);
+  -o-transform: rotate(-1deg);
+  transform: rotate(-1deg);
 }
 
 </style>
@@ -443,6 +474,8 @@ this.noise = function(x, y, z) {
     <a href='http://troisien.com/galaxie.html'>galaxie</a>
   </div>
   <div id='dials'></div>
+  <div id='lcd'></div>
+  <div id='lcd2'></div>
 </body>
 
 <script>
