@@ -35,6 +35,20 @@ body {
 #galaxie a:hover {
   text-decoration: underline;
 }
+#dials {
+  background: url(images/dials.png) no-repeat;
+  position: absolute;
+  right: 173;
+  bottom: 42;
+  width: 118px;
+  height: 60px;
+  z-index: 1000;
+  -webkit-transform: rotate(-5deg);
+  -moz-transform: rotate(-5deg);
+  -ms-transform: rotate(-5deg);
+  -o-transform: rotate(-5deg);
+  transform: rotate(-5deg);
+}
 
 </style>
 </head>
@@ -96,13 +110,10 @@ var timeout;
 var fps=0;
 
 var background = new Image();
-background.src = "/images/galaxie.png";
+background.src = "/images/moon.png";
 
-var portal = new Image();
-portal.src = "/images/window.png";
-
-var moon_x = 1100;
-var moon_y = 100;
+var moon_x = 1000;
+var moon_y = 200;
 var moon_h = 30;
 var moon_w = 48;
 
@@ -136,7 +147,6 @@ function anim()
   context.strokeStyle='rgb(0,0,0)';
 
   context.drawImage(background, moon_x, moon_y, moon_w, moon_h);
-  /*context.drawImage(portal, 0, 0, document.documentElement.clientWidth, document.documentElement.clientHeight);*/
 
   for(var i=0;i<n;i++)
     {
@@ -197,10 +207,16 @@ function velocity()
       moon_h = moon_h + 1;
       moon_w = moon_w + 1;
       star_speed += -0.2;
+
+      opacity = (opacity <= 0 ? 0.1 : opacity + 0.1);
+      context.fillStyle='rgba(0,0,0,'+opacity+')';
     } else {
       moon_h = moon_h - 1;
       moon_w = moon_w - 1;
       star_speed += 0.2;
+
+      opacity = (opacity >= 0.5 ? 0.4 : opacity + 0.1);
+      context.fillStyle='rgba(0,0,0,'+opacity+')';
     }
   }
 
@@ -318,6 +334,10 @@ function playNextStation() {
     "http://audio4.radioreference.com/796464909.mp3",
     "http://audio7.radioreference.com/373770164.mp3",
     "http://audio4.radioreference.com/il_chicago_police2.mp3",
+    "http://85.25.16.7:8048/;?1371332073079.mp3",
+    "http://audio5.radioreference.com/742312783.mp3",
+    "http://audio5.radioreference.com/442355281.mp3",
+    "http://relay.broadcastify.com:80/948335406.mp3",
   ];
 
   station = stations[Math.floor(Math.random()*stations.length)];
@@ -338,8 +358,8 @@ document.onmousewheel=mouse_wheel; if(window.addEventListener) window.addEventLi
 */
 
 /* auto-pilot */
-setInterval('steer()',3000);
-setInterval('velocity()',5000);
+setInterval('steer()',10000);
+setInterval('velocity()',30000);
 
 // This is a port of Ken Perlin's Java code. The
 // original Java code is at http://cs.nyu.edu/%7Eperlin/noise/.
@@ -406,6 +426,7 @@ this.noise = function(x, y, z) {
   <div id='galaxie'>
     <a href='http://troisien.com/galaxie.html'>galaxie</a>
   </div>
+  <div id='dials'></div>
 </body>
 
 <script>
