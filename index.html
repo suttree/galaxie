@@ -66,6 +66,37 @@ body {
   -o-transform: rotate(-3deg);
   transform: rotate(-3deg);
 }
+#pulse, #pulse2 {
+  position: absolute;
+  bottom: 120;
+  right: 200;
+  width: 5px;
+  height: 5px;
+  z-index: 999;
+  border: 2px solid #191970;
+  -webkit-border-radius: 5px;
+  position: absolute;
+  -webkit-animation: pulsate 1.5s ease-out;
+  -webkit-animation-iteration-count: infinite; 
+  opacity: 0.0
+}
+#pulse2 {
+  bottom: 120;
+  right: 214;
+  -webkit-animation: pulsate 1s ease-out;
+  -webkit-animation-iteration-count: infinite; 
+  border: 1px solid #000080;
+}
+#pulse3 {
+  bottom: 120;
+  right: 228;
+  border: 1px solid #333;
+}
+@-webkit-keyframes pulsate {
+  0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+  50% {opacity: 1.0;}
+  100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+}
 
 </style>
 </head>
@@ -104,7 +135,7 @@ var y=0;
 var z=0;
 var star_color_ratio=0;
 var star_x_save,star_y_save;
-var star_ratio=768;
+var star_ratio=624;
 var star_speed=1;
 var star_speed_save=0;
 var star=new Array(n);
@@ -460,6 +491,9 @@ this.noise = function(x, y, z) {
   </div>
   <div id='dials'></div>
   <div id='lcd'></div>
+  <div id='pulse'></div>
+  <div id='pulse2'></div>
+  <div id='pulse3'></div>
 </body>
 
 <script>
