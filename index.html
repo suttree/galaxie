@@ -72,8 +72,10 @@ function get_screen_size()
 
 var url=document.location.href;
 
-var audio = {};
-audio = new Audio();
+var audio_a = {};
+var audio_b = {};
+audio_a = new Audio();
+audio_b = new Audio();
 
 var flag=true;
 var test=true;
@@ -110,12 +112,12 @@ var timeout;
 var fps=0;
 
 var background = new Image();
-background.src = "/images/moon.png";
+background.src = "/images/moon-2.png";
 
 var moon_x = 1000;
 var moon_y = 200;
 var moon_h = 30;
-var moon_w = 48;
+var moon_w = 32;
 
 function init()
   {
@@ -340,14 +342,28 @@ function playNextStation() {
     "http://relay.broadcastify.com:80/948335406.mp3",
   ];
 
+  tunings = [
+    "http://galaxie.troisien.com/sounds/11700601.mp3",
+    "http://galaxie.troisien.com/sounds/11702301.mp3",
+    "http://galaxie.troisien.com/sounds/radio-searching2.mp3",
+    "http://galaxie.troisien.com/sounds/tuning-radio.mp3",
+  ]
+
   station = stations[Math.floor(Math.random()*stations.length)];
-  console.log('next station');
+  tuning = tunings[Math.floor(Math.random()*tunings.length)];
+  console.log('next station + tuning');
   console.log(station);
+  console.log(tuning);
 
-  audio.src = station
-  audio.play();
+  audio_a.src = tuning;
+  audio_a.play();
 
-  setInterval( function() { fadeVolume(audio, audio.volume, playNextStation()); }, 300000);
+  audio_a.addEventListener("ended", function() {
+    audio_b.src = station;
+    audio_b.play();
+  });
+
+  setInterval( function() { fadeVolume(audio_b, audio_b.volume, playNextStation()); }, 300000);
 }
 
 /*
